@@ -1,0 +1,92 @@
+@keyframes ldio-mn83vxewnq {
+  0% { transform: rotate(0) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-mn83vxewnq div { box-sizing: border-box!important }
+.ldio-mn83vxewnq > div {
+  position: absolute;
+  width: 69px;
+  height: 69px;
+  top: 15.5px;
+  left: 15.5px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  border-color: #5be7d0 transparent #5be7d0 transparent;
+  animation: ldio-mn83vxewnq 2.127659574468085s linear infinite;
+}
+
+.ldio-mn83vxewnq > div:nth-child(2), .ldio-mn83vxewnq > div:nth-child(4) {
+  width: 61px;
+  height: 61px;
+  top: 19.5px;
+  left: 19.5px;
+  animation: ldio-mn83vxewnq 2.127659574468085s linear infinite reverse;
+}
+.ldio-mn83vxewnq > div:nth-child(2) {
+  border-color: transparent #d2515d transparent #d2515d
+}
+.ldio-mn83vxewnq > div:nth-child(3) { border-color: transparent }
+.ldio-mn83vxewnq > div:nth-child(3) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.ldio-mn83vxewnq > div:nth-child(3) div:before, .ldio-mn83vxewnq > div:nth-child(3) div:after { 
+  content: "";
+  display: block;
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  top: -3px;
+  left: 30px;
+  background: #5be7d0;
+  border-radius: 50%;
+  box-shadow: 0 66px 0 0 #5be7d0;
+}
+.ldio-mn83vxewnq > div:nth-child(3) div:after {
+  left: -3px;
+  top: 30px;
+  box-shadow: 66px 0 0 0 #5be7d0;
+}
+
+.ldio-mn83vxewnq > div:nth-child(4) { border-color: transparent; }
+.ldio-mn83vxewnq > div:nth-child(4) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.ldio-mn83vxewnq > div:nth-child(4) div:before, .ldio-mn83vxewnq > div:nth-child(4) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  top: -3px;
+  left: 26px;
+  background: #d2515d;
+  border-radius: 50%;
+  box-shadow: 0 58px 0 0 #d2515d;
+}
+.ldio-mn83vxewnq > div:nth-child(4) div:after {
+  left: -3px;
+  top: 26px;
+  box-shadow: 58px 0 0 0 #d2515d;
+}
+.loadingio-spinner-double-ring-vi4a83cabvi {
+  width: 51px;
+  height: 51px;
+  display: inline-block;
+  overflow: hidden;
+  background: #303030;
+}
+.ldio-mn83vxewnq {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.51);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-mn83vxewnq div { box-sizing: content-box; }
