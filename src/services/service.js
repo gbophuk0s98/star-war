@@ -13,32 +13,32 @@ export default class SwapiService {
         return body
     }
 
-    async getAllPeople() {
+    getAllPeople = async () => {
         const persons = await this.getResourses(`/people/`)
         return persons.results.map(this._transformPerson)
     }
 
-    async getPerson(id) {
+    getPerson = async (id) => {
         const person = await this.getResourses(`/people/${id}`)
-        return person.results._transformPerson(person)
+        return this._transformPerson(person)
     }
 
-    async getAllPlanets(){
+    getAllPlanets = async () => {
         const planets = await this.getResourses(`/planets/`)
         return planets.results.map(this._transformPlanet)
     }
 
-    async getPlanet(id) { 
+    getPlanet = async (id) => { 
         const planet = await this.getResourses(`/planets/${id}`) 
         return this._transformPlanet(planet)
     }
 
-    async getAllStarships(){
+    getAllStarships = async () => {
         const starships = await this.getResourses(`/starships/`)
         return starships.results.map(this._transformStarShip)
     }
 
-    async getStarship(id) { 
+    getStarship = async (id) => { 
         const starship = await this.getResourses(`/starships/${id}`) 
         return starship.results._transformStarShip(starship)
     }
@@ -48,7 +48,7 @@ export default class SwapiService {
         return item.url.match(idRegexp)[1]
     }
     
-    _transformPlanet(planet) {
+    _transformPlanet = (planet) => {
 
         return {
             id: this._extractId(planet),
@@ -59,17 +59,17 @@ export default class SwapiService {
         }
     }
 
-    _transformPerson(person) {
+    _transformPerson = (person) => {
         return {
             id: this._extractId(person),
             name: person.name,
             gender: person.gender,
-            birthDay: person.birthDay,
-            eyeColor: person.eyeColor
+            birthDay: person.birth_year,
+            eyeColor: person.eye_color
         }
     }
 
-    _transformStarShip(starship) {
+    _transformStarShip = (starship) => {
 
         return {
             id: this._extractId(starship),

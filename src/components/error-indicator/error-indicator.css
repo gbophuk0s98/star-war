@@ -1,6 +1,10 @@
 .error-indicator{
     font-size: 20px;
     color:sandybrown;
+    margin: 50px 0;
+    border: 2px solid sandybrown;
+    border-radius: 12px;
+    padding: 25px 0;
 }
 
 .boom{

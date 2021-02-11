@@ -1,0 +1,12 @@
+.btn-err{
+    background-color: darkred;
+    border: darkred;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+.btn-err:hover{
+    color:#fff;
+    background-color:firebrick;
+    border-color:firebrick;
+}
