@@ -3,15 +3,16 @@ import SwapiService from '../../services/service'
 import Spinner from '../spinner/spinner'
 import ErrorButton from '../error-button/error-button'
 
-import './person-details.css'
+import './item-details.css'
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
     swapi = new SwapiService()
 
     state = {
-        person: null,
-        loading: true
+        item: null,
+        loading: true,
+        image: null,
     }
 
     componentDidMount(){
@@ -19,29 +20,29 @@ export default class PersonDetails extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if (this.props.personId != prevProps.personId) this.updatePerson()
+        if (this.props.itemId != prevProps.itemId) this.updatePerson()
     }
 
     updatePerson() {
-        const { personId } = this.props
-        if (!personId)  return
+        const { itemId, getData, getImageUrl } = this.props
+        if (!itemId)  return
         
-        this.swapi.getPerson(personId)
-            .then((person) => {
-                this.setState({ person: person, loading: false})
+        getData(itemId)
+            .then((item) => {
+                this.setState({ item: item, loading: false, image: getImageUrl(item)})
             })
     }
 
     render(){
 
-        if (!this.state.person) return <span>Select a person from a list</span>
         if (this.state.loading) return <Spinner />
+        if (!this.state.item) return <span>Select something from a list</span>
 
-        const { person: { id, name, gender, birthDay, eyeColor } } = this.state
+        const { item: { id, name, gender, birthDay, eyeColor }, image } = this.state
         return(
             <div className="card d-flex flex-row">
                 <div className="person-image-container">
-                    <img className="person-image" src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt="character" />
+                    <img className="person-image" src={image} alt="character" />
                 </div>
                 <div className="card-body">
                     <ul className="item-list list-group-flush m-0">
