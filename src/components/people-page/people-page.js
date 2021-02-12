@@ -41,7 +41,7 @@ export default class PeoplePage extends Component {
 
         return(
             <ErrorBoundry>
-            <Row left={itemList} right={personDetails}/>
+                <Row left={itemList} right={personDetails}/>
             </ErrorBoundry>
         )
     }
