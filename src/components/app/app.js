@@ -6,6 +6,7 @@ import PeoplePage from '../people-page/people-page'
 import ErrorIndicator from '../error-indicator/error-indicator'
 import SwapiService from '../../services/service'
 import ItemDetails, { Record } from '../item-details/item-details'
+import { SwapiProvider, SwapiConsumer } from '../swapi-context'
 import { 
     PersonList, 
     PlanetList,
@@ -65,28 +66,30 @@ export default class App extends Component {
         )
 
         return(
-            <div>
-                <div className="container">
-                    <Header />
-                    
-                    {/* {planet}
-                    
-                    <button 
-                    className="toggle-planet btn btn-warning btn-lg"
-                    onClick={this.onToggleRandomPlanet}
-                    >
-                    Toggle random planet
-                    </button>
-                    <ErrorButton />
-                    
-                    <PeoplePage 
-                    getData={this.swapi.getAllPeople}
-                    /> */}
-                    <Row left={peopleList} right={starshipList} />
-                    <Row left={personDetails} right={planetDetails} />
+            <SwapiProvider value={this.swapi}>
+                <div>
+                    <div className="container">
+                        <Header />
+                        
+                        {/* {planet}
+                        
+                        <button 
+                        className="toggle-planet btn btn-warning btn-lg"
+                        onClick={this.onToggleRandomPlanet}
+                        >
+                        Toggle random planet
+                        </button>
+                        <ErrorButton />
+                        
+                        <PeoplePage 
+                        getData={this.swapi.getAllPeople}
+                        /> */}
+                        <Row left={peopleList} right={starshipList} />
+                        <Row left={personDetails} right={planetDetails} />
 
+                    </div>
                 </div>
-            </div>
+            </SwapiProvider>
         )
     }
 }
