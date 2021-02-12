@@ -53,15 +53,15 @@ export default class App extends Component {
         )
 
         const peopleList = (
-            <PersonList>
-                {(item) => `${item.name}`}
-            </PersonList>
+            <PersonList />
         )
 
         const planetList = (
-            <PlanetList>
-                {(item) => `${item.name}`}
-            </PlanetList>
+            <PlanetList />
+        )
+
+        const starshipList = (
+            <StarshipList />
         )
 
         return(
@@ -82,7 +82,7 @@ export default class App extends Component {
                     <PeoplePage 
                     getData={this.swapi.getAllPeople}
                     /> */}
-                    <Row left={peopleList} right={planetList} />
+                    <Row left={peopleList} right={starshipList} />
                     <Row left={personDetails} right={planetDetails} />
 
                 </div>
