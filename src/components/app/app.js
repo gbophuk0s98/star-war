@@ -1,95 +1,117 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState} from 'react'
 import Header from '../header/header'
 import RandomPlanet from '../random-planet/random-planet'
-import ErrorButton from '../error-button/error-button'
-import PeoplePage from '../people-page/people-page'
 import ErrorIndicator from '../error-indicator/error-indicator'
 import SwapiService from '../../services/service'
-import ItemDetails, { Record } from '../item-details/item-details'
-import { SwapiProvider, SwapiConsumer } from '../swapi-context'
-import { 
-    PersonList, 
-    PlanetList,
-    StarshipList,
-    PersonDetails,
-    PlanetDetails,
-    StarshipDetails,
- } from '../sw-components/index'
+import { SwapiProvider } from '../swapi-context'
+import { PeoplePage, PlanetPage, StarshipsPage } from '../pages'
 
 import './app.css'
-import Row from '../row/row'
-import ItemList from '../item-list/item-list'
+import planetDetails from '../sw-components/planet-details'
 
-export default class App extends Component {
+// export default class App extends Component {
 
-    swapi = new SwapiService()
+//     swapi = new SwapiService()
 
-    state = {
-        showRandomPlanet: true,
-        hasError: false,
-    }
+//     state = {
+//         hasError: false,
+//     }
 
-    onToggleRandomPlanet = () => {
-        this.setState({
-            showRandomPlanet: !this.state.showRandomPlanet
+
+//     componentDidCatch(){
+//         this.setState({ hasError: true })
+//     }
+
+//     render(){
+
+//         if (this.state.hasError) return <ErrorIndicator/>
+
+//         return(
+//             <SwapiProvider value={this.swapi}>
+//                 <div>
+//                     <div className="container">
+//                         <Header />
+                        
+//                         <RandomPlanet updateInterval={2000}/>
+
+//                         <PeoplePage />
+//                         <PlanetPage />
+//                         <StarshipsPage />
+
+//                     </div>
+//                 </div>
+//             </SwapiProvider>
+//         )
+//     }
+// }
+
+const App = () => {
+
+    const [id, setId] = useState(1)
+
+    const addHandler = () => {
+        setId((id) => {
+            return id + 1
         })
-    }
+    } 
 
-    componentDidCatch(){
-        console.log('componentDidCatch()')
-        this.setState({ hasError: true })
-    }
-
-    render(){
-
-        const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null
-        if (this.state.hasError) return <ErrorIndicator/>
-
-        const personDetails = (
-            <PersonDetails itemId={11}/>
-        )
-
-        const planetDetails = (
-            <PlanetDetails itemId={11}/>
-        )
-
-        const peopleList = (
-            <PersonList />
-        )
-
-        const planetList = (
-            <PlanetList />
-        )
-
-        const starshipList = (
-            <StarshipList />
-        )
-
-        return(
-            <SwapiProvider value={this.swapi}>
-                <div>
-                    <div className="container">
-                        <Header />
-                        
-                        {/* {planet}
-                        
-                        <button 
-                        className="toggle-planet btn btn-warning btn-lg"
-                        onClick={this.onToggleRandomPlanet}
-                        >
-                        Toggle random planet
-                        </button>
-                        <ErrorButton />
-                        
-                        <PeoplePage 
-                        getData={this.swapi.getAllPeople}
-                        /> */}
-                        <Row left={peopleList} right={starshipList} />
-                        <Row left={personDetails} right={planetDetails} />
-
-                    </div>
-                </div>
-            </SwapiProvider>
-        )
-    }
+    return(
+        <div className="container">
+            <button
+                className="btn btn-primary"
+                onClick={addHandler}>+</button>
+            <PlanetInfo id={id} />
+        </div>
+    )
 }
+
+const usePlanetInfo = (id) => {
+    
+    const swapi = new SwapiService()
+    const [planetName, setPlanetName] = useState('')
+
+    useEffect(() => {
+        let cancelled = false
+        swapi.getPlanet(id).then((planet) => {
+            !cancelled && setPlanetName(planet.name)
+        })
+
+        return () => cancelled = true
+    }, [id])
+
+    return planetName
+}
+
+const getPlanet = (id) => {
+    return swapi.getPlanet(id).then((planet) => planet)
+}
+
+const PlanetInfo = ({id}) => {
+
+    const name = usePlanetInfo(id)
+
+    return(
+        <div className="container">{id} - {name}</div>
+    )
+}
+
+const Notification = () => {
+
+    const [isVisible, setIsVisible] = useState(true)
+    
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setIsVisible(false)
+        }, 1500);
+
+        return () => clearTimeout(timeout)
+    }, [])
+
+
+
+    return(
+         <div className="container"> { isVisible && <span>Hello</span>} </div>
+    )
+}
+
+export default App

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ErrorIndicator from '../error-indicator/error-indicator'
 import Spinner from '../spinner/spinner'
 
-export const withData = (View, getData) => {
+const withData = (View) => {
     return class extends Component{
 
         state = {
@@ -11,7 +11,7 @@ export const withData = (View, getData) => {
         }
     
         componentDidMount(){
-            getData().then((data) => {
+            this.props.getData().then((data) => {
                     this.setState({ data })
                 }).catch(() => this.setState({ hasError: true }))
         }
@@ -25,3 +25,5 @@ export const withData = (View, getData) => {
         }
     }
 }
+
+export default withData
