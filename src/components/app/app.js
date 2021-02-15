@@ -7,111 +7,121 @@ import { SwapiProvider } from '../swapi-context'
 import { PeoplePage, PlanetPage, StarshipsPage } from '../pages'
 
 import './app.css'
-import planetDetails from '../sw-components/planet-details'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { StarshipDetails } from '../sw-components'
 
-// export default class App extends Component {
+export default class App extends Component {
 
-//     swapi = new SwapiService()
+    swapi = new SwapiService()
 
-//     state = {
-//         hasError: false,
-//     }
+    state = {
+        hasError: false,
+    }
 
 
-//     componentDidCatch(){
-//         this.setState({ hasError: true })
-//     }
+    componentDidCatch(){
+        this.setState({ hasError: true })
+    }
 
-//     render(){
+    render(){
 
-//         if (this.state.hasError) return <ErrorIndicator/>
+        if (this.state.hasError) return <ErrorIndicator/>
 
-//         return(
-//             <SwapiProvider value={this.swapi}>
-//                 <div>
-//                     <div className="container">
-//                         <Header />
+        return(
+            <SwapiProvider value={this.swapi}>
+                <Router>
+                <div>
+                    <div className="container">
+                        <Header />
                         
-//                         <RandomPlanet updateInterval={2000}/>
+                        <RandomPlanet />
 
-//                         <PeoplePage />
-//                         <PlanetPage />
-//                         <StarshipsPage />
+                        <Route path="/" render={() => <h2>Welcome to star-db</h2>} exact/>
+                        <Route path="/people" component={PeoplePage} />
+                        <Route path="/planets" component={PlanetPage} />
+                        <Route path="/starships" component={StarshipsPage} exact/>
+                        <Route path="/starships/:id" 
+                            render={
+                                ({ match, location, history }) => {
+                                    return <StarshipDetails itemId={match.params.id}/>
+                                }
+                            } />
 
-//                     </div>
-//                 </div>
-//             </SwapiProvider>
-//         )
-//     }
+                    </div>
+                </div>
+                </Router>
+            </SwapiProvider>
+        )
+    }
+}
+
+// const App = () => {
+
+//     const [id, setId] = useState(1)
+
+//     const addHandler = () => {
+//         setId((id) => {
+//             return id + 1
+//         })
+//     } 
+
+//     return(
+//         <div className="container">
+//             <button
+//                 className="btn btn-primary"
+//                 onClick={addHandler}>+</button>
+//             <PlanetInfo id={id} />
+//         </div>
+//     )
 // }
 
-const App = () => {
-
-    const [id, setId] = useState(1)
-
-    const addHandler = () => {
-        setId((id) => {
-            return id + 1
-        })
-    } 
-
-    return(
-        <div className="container">
-            <button
-                className="btn btn-primary"
-                onClick={addHandler}>+</button>
-            <PlanetInfo id={id} />
-        </div>
-    )
-}
-
-const usePlanetInfo = (id) => {
+// const usePlanetInfo = (id) => {
     
-    const swapi = new SwapiService()
-    const [planetName, setPlanetName] = useState('')
+//     const swapi = new SwapiService()
+//     const [planetName, setPlanetName] = useState('')
 
-    useEffect(() => {
-        let cancelled = false
-        swapi.getPlanet(id).then((planet) => {
-            !cancelled && setPlanetName(planet.name)
-        })
+//     useEffect(() => {
+//         let cancelled = false
+//         swapi.getPlanet(id).then((planet) => {
+//             !cancelled && setPlanetName(planet.name)
+//         })
 
-        return () => cancelled = true
-    }, [id])
+//         return () => cancelled = true
+//     }, [id])
 
-    return planetName
-}
+//     return planetName
+// }
 
-const getPlanet = (id) => {
-    return swapi.getPlanet(id).then((planet) => planet)
-}
+// const getPlanet = (id) => {
+//     return swapi.getPlanet(id).then((planet) => planet)
+// }
 
-const PlanetInfo = ({id}) => {
+// const PlanetInfo = ({id}) => {
 
-    const name = usePlanetInfo(id)
+//     const name = usePlanetInfo(id)
 
-    return(
-        <div className="container">{id} - {name}</div>
-    )
-}
+//     return(
+//         <div className="container">{id} - {name}</div>
+//     )
+// }
 
-const Notification = () => {
+// const Notification = () => {
 
-    const [isVisible, setIsVisible] = useState(true)
+//     const [isVisible, setIsVisible] = useState(true)
     
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsVisible(false)
-        }, 1500);
+//     useEffect(() => {
+//         const timeout = setTimeout(() => {
+//             setIsVisible(false)
+//         }, 1500);
 
-        return () => clearTimeout(timeout)
-    }, [])
+//         return () => clearTimeout(timeout)
+//     }, [])
 
 
 
-    return(
-         <div className="container"> { isVisible && <span>Hello</span>} </div>
-    )
-}
+//     return(
+//          <div className="container"> { isVisible && <span>Hello</span>} </div>
+//     )
+// }
 
-export default App
+// export default App
